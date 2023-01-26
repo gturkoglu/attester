@@ -8,13 +8,35 @@ jobs:
   linux:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: messense/maturin-action@v1
-      with:
-        manylinux: auto
-        command: build
-        args: --release -i python3.10
-    - uses: actions/upload-artifact@v2
-      with:
-        name: wheels
-        path: target/wheels
+      - uses: actions/checkout@v3
+      - uses: messense/maturin-action@v1
+        with:
+          manylinux: auto
+          command: build
+          args: --release -i python3.10
+      - uses: actions/upload-artifact@v2
+        with:
+          name: wheels
+          path: target/wheels
+
+  linux-cross:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target: [aarch64, armv7]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.10
+      - name: Build wheels
+        uses: PyO3/maturin-action@v1
+        with:
+          target: ${{ matrix.target }}
+          manylinux: auto
+          args: --release -i python3.10
+      - name: Upload wheels
+        uses: actions/upload-artifact@v3
+        with:
+          name: wheels
+          path: dist
