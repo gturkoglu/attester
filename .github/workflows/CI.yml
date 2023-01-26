@@ -13,4 +13,4 @@ jobs:
       with:
         manylinux: auto
         command: build
-        args: --release
+        args: --release -i python3.10
