@@ -14,3 +14,7 @@ jobs:
         manylinux: auto
         command: build
         args: --release -i python3.10
+    - uses: actions/upload-artifact@v2
+      with:
+        name: wheels
+        path: target/wheels
