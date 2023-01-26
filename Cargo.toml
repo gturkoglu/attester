@@ -1,0 +1,19 @@
+[package]
+name = "pynsm"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "attester"
+
+[dependencies]
+pyo3 = { version = "0.18.0", features = ["extension-module"] }
+serde_bytes = "0.11"
+
+[dependencies.nsm-driver]
+git = "https://github.com/aws/aws-nitro-enclaves-nsm-api.git"
+rev = "4f468c4"
+
+[dependencies.nsm-io]
+git = "https://github.com/aws/aws-nitro-enclaves-nsm-api.git"
+rev = "4f468c4"
